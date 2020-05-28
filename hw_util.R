@@ -19,7 +19,6 @@ hw_data<-function(num_of_points=500){
 }
 
 
-
 # generate D_geo, this is the geodesic distance
 hw_geodesic<-function(t, num_of_points){
   f = function(x){sqrt(8*(3*x^2-3*x+1))}
@@ -34,4 +33,28 @@ hw_geodesic<-function(t, num_of_points){
     j=j+1
   }
   return(D_geo)
+}
+
+
+generate_high_dim_gaussian_noise<-function(num_of_points, noise_dim=6, const=70){
+  matrix_of_0 = matrix(rep(0, num_of_points*(noise_dim)), nrow = num_of_points, ncol = noise_dim)
+  cov_matrix = matrix(rep(0, noise_dim*noise_dim), nrow = noise_dim, ncol = noise_dim)
+  diag(cov_matrix) = c(rep(const, noise_dim))
+  Sig1 = cov_matrix
+  noise = mvrnorm(n = num_of_points, (rep(0, noise_dim)), Sig1, tol = 1e-7, empirical = FALSE, EISPACK = FALSE)
+  rownames(noise) <- c()
+  colnames(noise) <- c()
+  return(noise)
+}
+
+
+generate_high_dim_gaussian_noise<-function(num_of_points, noise_dim=6, v=10){
+  matrix_of_0 = matrix(rep(0, num_of_points*(noise_dim)), nrow = num_of_points, ncol = noise_dim)
+  cov_matrix = matrix(rep(0, noise_dim*noise_dim), nrow = noise_dim, ncol = noise_dim)
+  diag(cov_matrix) = c(rep(v, noise_dim))
+  Sig1 = cov_matrix
+  noise = mvrnorm(n = num_of_points, (rep(0, noise_dim)), Sig1, tol = 1e-7, empirical = FALSE, EISPACK = FALSE)
+  rownames(noise) <- c()
+  colnames(noise) <- c()
+  return(noise)
 }

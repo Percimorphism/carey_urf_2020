@@ -16,7 +16,7 @@ hw_data=hw_data_object[[1]]
 t=hw_data_object[[2]]
 
 # we pick a special point on the curve, and look at its 1-nn
-sp_pt = 40
+sp_pt = 400
 
 ####################################################
 # With no noise on the curve
@@ -50,4 +50,4 @@ urf_dist_rk1_sppt = D_rf[sp_pt, rank_one_pt_geo]
 rf_sort = sort(D_rf[sp_pt,])
 R_urf = match(urf_dist_rk1_sppt, rf_sort) - 1
 
-print(R_iso, R_urf)
+print(c(R_iso, R_urf))
