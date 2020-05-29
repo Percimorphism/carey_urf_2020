@@ -1,6 +1,5 @@
-source('hw_simulation.R')
+source('rank_util.R')
 source('hw_util.R')
-source('hw_noise_simulation.R')
 
 # Hardy-Weinberg Curve
 num_of_points=1000
@@ -10,13 +9,14 @@ t=hw_data_object[[2]]
 
 # noise parameter
 noise_dim = 5
-v = 10
+v = 1
 #generate noise and concatenate onto HW
 noise=generate_high_dim_gaussian_noise(num_of_points, noise_dim, v)
 hw_noise_data=cbind(hw_data, noise)
 
 #list of X in Carey's Conjecture, for stochastic
-special_point_list = c(100:300)
+set.seed(1)
+special_point_list = sort(sample(c(2:num_of_points-2), 200, replace = FALSE, prob = NULL))
 
 distance_matrices = build_distance_matrices(t, num_of_points)
 D_geo = distance_matrices$D_geo
@@ -40,3 +40,6 @@ for (sp_pt in special_point_list){
   rank_list_df[nrow(rank_list_df) + 1,] = c(R_iso, R_urf, R_urf_noise, R_iso_noise)
 }
 
+print(rank_list_df)
+
+  
